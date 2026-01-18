@@ -1,15 +1,21 @@
 import { useState } from "react";
 
 function App() {
+  // Holds all todos (array of objects)
   const [todos, setTodos] = useState([]);
+
+  // Holds input field value
   const [newTodo, setNewTodo] = useState("");
 
+  // Updates input as user types
   const handleInputChange = (event) => {
     setNewTodo(event.target.value);
   };
 
+  // Adds a new todo when form is submitted
   const handleSubmit = (event) => {
     event.preventDefault();
+
     if (newTodo.trim() === "") return;
 
     const todoObject = {
@@ -22,21 +28,21 @@ function App() {
     setNewTodo("");
   };
 
+  // Toggles complete/incomplete
   const toggleTodo = (id) => {
-    const updatedTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        return { ...todo, completed: !todo.completed };
-      }
-      return todo;
-    });
-
-    setTodos(updatedTodos);
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
   };
 
+  // Deletes a todo
   const deleteTodo = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
+  // Optional count for remaining todos
   const remainingTodos = todos.filter((todo) => !todo.completed).length;
 
   return (
@@ -60,8 +66,7 @@ function App() {
         Remaining Todos: <span>{remainingTodos}</span>
       </p>
 
-      <ul className="todo-list">
-         {todos.length === 0 ? (
+      {todos.length === 0 ? (
         <p className="empty-msg">No todos yet 👀 Add one above!</p>
       ) : (
         <ul className="todo-list">
@@ -84,5 +89,8 @@ function App() {
           ))}
         </ul>
       )}
+    </div>
+  );
+}
 
 export default App;
