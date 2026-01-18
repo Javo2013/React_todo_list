@@ -22,6 +22,17 @@ function App() {
     setNewTodo("");
   };
 
+  const toggleTodo = (id) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, completed: !todo.completed };
+      }
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+  };
+
   return (
     <div>
       <h1>My Todo List ✅</h1>
@@ -38,7 +49,17 @@ function App() {
 
       <ul>
         {todos.map((todo) => (
-          <li key={todo.id}>{todo.text}</li>
+          <li
+            key={todo.id}
+            onClick={() => toggleTodo(todo.id)}
+            style={{
+              cursor: "pointer",
+              textDecoration: todo.completed ? "line-through" : "none",
+              opacity: todo.completed ? 0.6 : 1,
+            }}
+          >
+            {todo.text}
+          </li>
         ))}
       </ul>
     </div>
