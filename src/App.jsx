@@ -34,43 +34,45 @@ function App() {
   };
 
   const deleteTodo = (id) => {
-    const filteredTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(filteredTodos);
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   const remainingTodos = todos.filter((todo) => !todo.completed).length;
 
   return (
-    <div>
-      <h1>My Todo List ✅</h1>
+    <div className="app">
+      <h1 className="title">My Todo List ✅</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form className="todo-form" onSubmit={handleSubmit}>
         <input
           type="text"
+          className="todo-input"
           value={newTodo}
           onChange={handleInputChange}
           placeholder="Add a new todo..."
         />
-        <button type="submit">Add Todo</button>
+        <button className="add-btn" type="submit">
+          Add Todo
+        </button>
       </form>
 
-      <p>Remaining Todos: {remainingTodos}</p>
+      <p className="count">
+        Remaining Todos: <span>{remainingTodos}</span>
+      </p>
 
-      <ul>
+      <ul className="todo-list">
         {todos.map((todo) => (
-          <li key={todo.id} style={{ display: "flex", gap: "10px" }}>
+          <li key={todo.id} className="todo-item">
             <span
+              className={`todo-text ${todo.completed ? "completed" : ""}`}
               onClick={() => toggleTodo(todo.id)}
-              style={{
-                cursor: "pointer",
-                textDecoration: todo.completed ? "line-through" : "none",
-                opacity: todo.completed ? 0.6 : 1,
-              }}
             >
               {todo.text}
             </span>
 
-            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+            <button className="delete-btn" onClick={() => deleteTodo(todo.id)}>
+              Delete
+            </button>
           </li>
         ))}
       </ul>
