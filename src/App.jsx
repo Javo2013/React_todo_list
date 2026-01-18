@@ -33,6 +33,13 @@ function App() {
     setTodos(updatedTodos);
   };
 
+  const deleteTodo = (id) => {
+    const filteredTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(filteredTodos);
+  };
+
+  const remainingTodos = todos.filter((todo) => !todo.completed).length;
+
   return (
     <div>
       <h1>My Todo List ✅</h1>
@@ -47,18 +54,23 @@ function App() {
         <button type="submit">Add Todo</button>
       </form>
 
+      <p>Remaining Todos: {remainingTodos}</p>
+
       <ul>
         {todos.map((todo) => (
-          <li
-            key={todo.id}
-            onClick={() => toggleTodo(todo.id)}
-            style={{
-              cursor: "pointer",
-              textDecoration: todo.completed ? "line-through" : "none",
-              opacity: todo.completed ? 0.6 : 1,
-            }}
-          >
-            {todo.text}
+          <li key={todo.id} style={{ display: "flex", gap: "10px" }}>
+            <span
+              onClick={() => toggleTodo(todo.id)}
+              style={{
+                cursor: "pointer",
+                textDecoration: todo.completed ? "line-through" : "none",
+                opacity: todo.completed ? 0.6 : 1,
+              }}
+            >
+              {todo.text}
+            </span>
+
+            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
           </li>
         ))}
       </ul>
