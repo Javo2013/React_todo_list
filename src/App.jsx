@@ -1,18 +1,37 @@
 import { useState } from "react";
 
 function App() {
-  // State for the input box
+  // Todos array
+  const [todos, setTodos] = useState([]);
+
+  // Input text
   const [newTodo, setNewTodo] = useState("");
 
   const handleInputChange = (event) => {
     setNewTodo(event.target.value);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    // prevent empty todos
+    if (newTodo.trim() === "") return;
+
+    const todoObject = {
+      id: Date.now(),
+      text: newTodo.trim(),
+      completed: false,
+    };
+
+    setTodos([...todos, todoObject]);
+    setNewTodo("");
+  };
+
   return (
     <div>
       <h1>My Todo List ✅</h1>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={newTodo}
