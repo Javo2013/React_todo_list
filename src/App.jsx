@@ -1,10 +1,7 @@
 import { useState } from "react";
 
 function App() {
-  // Todos array
   const [todos, setTodos] = useState([]);
-
-  // Input text
   const [newTodo, setNewTodo] = useState("");
 
   const handleInputChange = (event) => {
@@ -13,8 +10,6 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // prevent empty todos
     if (newTodo.trim() === "") return;
 
     const todoObject = {
@@ -40,6 +35,12 @@ function App() {
         />
         <button type="submit">Add Todo</button>
       </form>
+
+      <ul>
+        {todos.map((todo) => (
+          <li key={todo.id}>{todo.text}</li>
+        ))}
+      </ul>
     </div>
   );
 }
