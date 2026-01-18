@@ -61,23 +61,28 @@ function App() {
       </p>
 
       <ul className="todo-list">
-        {todos.map((todo) => (
-          <li key={todo.id} className="todo-item">
-            <span
-              className={`todo-text ${todo.completed ? "completed" : ""}`}
-              onClick={() => toggleTodo(todo.id)}
-            >
-              {todo.text}
-            </span>
+         {todos.length === 0 ? (
+        <p className="empty-msg">No todos yet 👀 Add one above!</p>
+      ) : (
+        <ul className="todo-list">
+          {todos.map((todo) => (
+            <li key={todo.id} className="todo-item">
+              <span
+                className={`todo-text ${todo.completed ? "completed" : ""}`}
+                onClick={() => toggleTodo(todo.id)}
+              >
+                {todo.text}
+              </span>
 
-            <button className="delete-btn" onClick={() => deleteTodo(todo.id)}>
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+              <button
+                className="delete-btn"
+                onClick={() => deleteTodo(todo.id)}
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
 
 export default App;

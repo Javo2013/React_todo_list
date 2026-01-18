@@ -110,3 +110,9 @@ body {
   text-decoration: line-through;
   opacity: 0.6;
 }
+
+.empty-msg {
+  text-align: center;
+  color: #64748b;
+  margin-top: 20px;
+}
